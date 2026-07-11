@@ -31,6 +31,7 @@ Reglas de colaboración — **escalera anti-spoiler**:
 
 - La IA **nunca edita archivos bajo `projects/`** sin pedido explícito.
 - Antes de subir de nivel, la IA pregunta si querés la pista o preferís seguir intentando.
+- **Context7 obligatorio**: siempre que la IA revise código, proponga código (niveles 3–4) o afirme APIs/idioms/versiones, verifica primero contra docs actuales vía Context7 MCP. Nada de memoria para librerías/frameworks.
 
 ### 5. Evaluación
 `/evaluar` al completar el módulo:
