@@ -1,0 +1,580 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zintropia — Mockups móvil</title>
+<style>
+  :root {
+    /* Zintropia tokens — src/theme/nativeTheme.ts */
+    --leaf: #4A7C3F;
+    --spring: #6B9E5E;
+    --forest: #2D5F2D;
+    --earth: #7B5B3A;
+    --tan: #A68B6B;
+    --root: #3D2B1F;
+    --gold: #E8B44D;
+    --cyan: #4DC8D9;
+    --white: #FAFAF7;
+    --background: #E8EDDF;
+    --card: #F7F9F4;
+    --card-fg: #4A3728;
+    --muted: #F0EDE8;
+    --muted-fg: #766E62;
+    --border: #DDE3D5;
+    --header-bg: #F0F4ED;
+    --error: #C4533A;
+    --cielo: #FFFBF0;
+    --bajo: #D5CDBB;
+
+    /* Page chrome (not app) */
+    --page-bg: #EDF0E6;
+    --page-fg: #3D2B1F;
+    --page-muted: #766E62;
+    --page-card: #F7F9F4;
+    --page-border: #DDE3D5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --page-bg: #1A1612; --page-fg: #FAFAF7; --page-muted: #9E9688; --page-card: #2A2520; --page-border: #3D3832; }
+  }
+  :root[data-theme="dark"] { --page-bg: #1A1612; --page-fg: #FAFAF7; --page-muted: #9E9688; --page-card: #2A2520; --page-border: #3D3832; }
+  :root[data-theme="light"] { --page-bg: #EDF0E6; --page-fg: #3D2B1F; --page-muted: #766E62; --page-card: #F7F9F4; --page-border: #DDE3D5; }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page-bg);
+    color: var(--page-fg);
+    font-family: "Nunito", ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+  }
+  .page { max-width: 1400px; margin: 0 auto; padding: 40px 24px 64px; }
+  .page-head { margin-bottom: 8px; }
+  .page-head h1 { font-size: 26px; margin: 0 0 4px; color: var(--page-fg); font-weight: 800; text-wrap: balance; }
+  .page-head p { margin: 0; color: var(--page-muted); font-size: 14px; max-width: 62ch; }
+  .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: 11px; font-weight: 700; color: var(--leaf); }
+
+  .gallery { display: flex; gap: 32px; overflow-x: auto; padding: 28px 4px 12px; align-items: flex-start; }
+  .shot { flex: 0 0 auto; }
+  .shot-label { text-align: center; margin-top: 14px; font-size: 13px; color: var(--page-muted); }
+  .shot-label b { display: block; color: var(--page-fg); font-size: 14px; }
+
+  /* Phone frame */
+  .phone {
+    width: 340px; height: 720px;
+    background: var(--background);
+    border-radius: 44px;
+    border: 8px solid #2A2520;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 18px 40px rgba(61,43,31,.22);
+    position: relative;
+  }
+  .statusbar { height: 34px; flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 22px; font-size: 12px; font-weight: 700; color: var(--root); }
+  .screen { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* App primitives */
+  .appbar { padding: 10px 20px 14px; background: var(--header-bg); border-bottom: 1px solid var(--border); }
+  .appbar .hello { font-size: 13px; color: var(--muted-fg); }
+  .appbar .title { font-size: 20px; font-weight: 800; color: var(--forest); }
+  .chip { display: inline-flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 700; color: var(--root); }
+  .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--leaf); }
+  .chip.warn .dot { background: var(--gold); }
+  .chip.stop .dot { background: var(--error); }
+
+  .body { flex: 1; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 14px 16px; }
+  .card h4 { margin: 0 0 2px; font-size: 14px; color: var(--card-fg); }
+  .card p { margin: 0; font-size: 12.5px; color: var(--muted-fg); line-height: 1.45; }
+
+  .btn { display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 16px; padding: 14px; font-size: 15px; font-weight: 800; }
+  .btn.primary { background: var(--leaf); color: var(--white); box-shadow: 0 2px 6px rgba(61,43,31,.15); }
+  .btn.ghost { background: var(--card); color: var(--root); border: 1px solid var(--border); }
+  .btn.dark { background: var(--root); color: var(--white); }
+
+  .tabbar { flex: 0 0 auto; display: flex; border-top: 1px solid var(--border); background: var(--card); padding: 8px 10px 18px; }
+  .tab { flex: 1; text-align: center; font-size: 10.5px; font-weight: 700; color: var(--muted-fg); display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .tab.active { color: var(--forest); }
+  .tab svg { width: 22px; height: 22px; }
+
+  svg.ic { width: 20px; height: 20px; flex: 0 0 auto; }
+
+  /* Screen 1 — scan home */
+  .scan-hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+  .scan-ring { width: 168px; height: 168px; border-radius: 50%; background: var(--card); border: 2px dashed var(--spring); display: flex; align-items: center; justify-content: center; }
+  .scan-btn { width: 128px; height: 128px; border-radius: 50%; background: var(--leaf); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--white); font-weight: 800; font-size: 14px; box-shadow: 0 6px 16px rgba(45,95,45,.35); }
+  .recent { display: flex; gap: 10px; }
+  .recent .thumb { width: 64px; height: 64px; border-radius: 12px; border: 1px solid var(--border); }
+
+  /* Screen 2 — result */
+  .photo { height: 190px; border-radius: 16px; position: relative; overflow: hidden; }
+  .photo .conf { position: absolute; top: 10px; right: 10px; background: rgba(250,250,247,.92); border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 800; color: var(--forest); }
+  .plant-name { margin: 2px 0 0; font-size: 21px; font-weight: 800; color: var(--forest); }
+  .plant-latin { margin: 0; font-size: 12.5px; font-style: italic; color: var(--muted-fg); }
+  .care { display: flex; gap: 10px; }
+  .care .card { flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 12px; }
+  .care .val { font-size: 13px; font-weight: 800; color: var(--card-fg); }
+  .care .lbl { font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-fg); font-weight: 700; }
+
+  /* Screen 3 — history */
+  .row { display: flex; gap: 12px; align-items: center; }
+  .row .thumb { width: 52px; height: 52px; border-radius: 12px; flex: 0 0 auto; }
+  .row .meta { flex: 1; min-width: 0; }
+  .row .meta b { display: block; font-size: 14px; color: var(--card-fg); }
+  .row .meta span { font-size: 11.5px; color: var(--muted-fg); }
+  .badge { font-size: 10.5px; font-weight: 800; border-radius: 999px; padding: 3px 9px; }
+  .badge.ok { background: #E4EEDF; color: var(--forest); }
+  .badge.low { background: #F7E8CE; color: #8A6410; }
+
+  /* Screen 4 — login */
+  .login { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 0 6px; }
+  .logo-leaf { width: 72px; height: 72px; border-radius: 20px; background: var(--forest); display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; }
+  .login h2 { margin: 0; text-align: center; font-size: 21px; font-weight: 800; color: var(--forest); text-wrap: balance; }
+  .login .sub { text-align: center; font-size: 13px; color: var(--muted-fg); margin: 0 0 10px; line-height: 1.5; }
+  .legal { text-align: center; font-size: 10.5px; color: var(--muted-fg); margin-top: 10px; }
+
+  /* Premium result */
+  .pro-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--gold); color: var(--root); border-radius: 999px; padding: 3px 10px; font-size: 10.5px; font-weight: 800; letter-spacing: .04em; }
+  .section-h { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; color: var(--muted-fg); text-transform: uppercase; letter-spacing: .08em; margin: 4px 0 -4px; }
+  .meter { height: 8px; border-radius: 999px; background: var(--muted); overflow: hidden; }
+  .meter > div { height: 100%; border-radius: 999px; background: var(--leaf); }
+  .kv { display: flex; justify-content: space-between; font-size: 12.5px; padding: 7px 0; border-bottom: 1px solid var(--border); color: var(--card-fg); }
+  .kv:last-child { border-bottom: 0; }
+  .kv span:last-child { font-weight: 800; }
+  .fade-bottom { position: absolute; left: 8px; right: 8px; bottom: 8px; height: 70px; background: linear-gradient(transparent, var(--background)); border-radius: 0 0 36px 36px; pointer-events: none; }
+  .scrollhint { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 800; color: var(--muted-fg); background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; }
+
+  /* Profile */
+  .avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--spring), var(--forest)); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 24px; font-weight: 800; }
+  .settings-row { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--border); font-size: 13.5px; font-weight: 700; color: var(--card-fg); }
+  .settings-row:last-child { border-bottom: 0; }
+  .settings-row .chev { margin-left: auto; color: var(--muted-fg); }
+
+  /* Paywall */
+  .tier { border: 2px solid var(--border); border-radius: 16px; padding: 14px 16px; background: var(--card); position: relative; }
+  .tier.featured { border-color: var(--gold); background: var(--cielo); }
+  .tier .t-name { font-size: 15px; font-weight: 800; color: var(--forest); }
+  .tier .t-price { font-size: 20px; font-weight: 800; color: var(--root); }
+  .tier .t-price small { font-size: 11px; font-weight: 700; color: var(--muted-fg); }
+  .tier ul { margin: 8px 0 0; padding: 0; list-style: none; font-size: 12px; color: var(--muted-fg); display: flex; flex-direction: column; gap: 5px; }
+  .tier li { display: flex; gap: 7px; align-items: flex-start; }
+  .tier li::before { content: "✓"; color: var(--leaf); font-weight: 800; }
+  .tier .flag { position: absolute; top: -10px; right: 12px; }
+
+  /* Segmented toggle (result views) */
+  .seg { display: flex; background: var(--muted); border-radius: 999px; padding: 3px; gap: 2px; }
+  .seg > div { flex: 1; text-align: center; font-size: 11.5px; font-weight: 800; padding: 6px 0; border-radius: 999px; color: var(--muted-fg); }
+  .seg > .on { background: var(--card); color: var(--forest); box-shadow: 0 1px 2px rgba(61,43,31,.12); }
+
+  /* Checkout sheet */
+  .sheet-backdrop { position: absolute; inset: 0; background: rgba(26,22,18,.45); border-radius: 36px; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--card); border-radius: 24px 24px 36px 36px; padding: 14px 18px 22px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 -8px 30px rgba(26,22,18,.25); }
+  .sheet .grab { width: 40px; height: 4px; border-radius: 999px; background: var(--border); margin: 0 auto; }
+  .trial-line { display: flex; flex-direction: column; gap: 0; }
+  .trial-step { display: flex; gap: 12px; }
+  .trial-step .tdot { width: 22px; display: flex; flex-direction: column; align-items: center; }
+  .trial-step .tdot i { width: 10px; height: 10px; border-radius: 50%; background: var(--leaf); flex: 0 0 auto; margin-top: 3px; }
+  .trial-step .tdot em { flex: 1; width: 2px; background: var(--border); }
+  .trial-step .tmeta { padding-bottom: 12px; }
+  .trial-step .tmeta b { display: block; font-size: 12.5px; color: var(--card-fg); }
+  .trial-step .tmeta span { font-size: 11px; color: var(--muted-fg); }
+  .trial-step:last-child .tdot em { display: none; }
+  .trial-step:last-child .tmeta { padding-bottom: 0; }
+
+  /* Error */
+  .error-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; padding: 0 10px; }
+  .error-pot { width: 110px; height: 110px; border-radius: 50%; background: var(--muted); display: flex; align-items: center; justify-content: center; font-size: 52px; }
+
+  /* Screen 5 — cap reached */
+  .cap { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; text-align: center; }
+  .cap-count { display: flex; gap: 8px; }
+  .seed { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--card); border: 1px solid var(--border); }
+  .seed.used { background: var(--leaf); border-color: var(--leaf); }
+  .cap h2 { margin: 6px 0 0; font-size: 20px; font-weight: 800; color: var(--forest); }
+  .cap p { margin: 0; font-size: 13px; color: var(--muted-fg); max-width: 30ch; line-height: 1.5; }
+
+  .notes { margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .note { background: var(--page-card); border: 1px solid var(--page-border); border-radius: 14px; padding: 14px 16px; font-size: 13px; color: var(--page-muted); }
+  .note b { color: var(--page-fg); display: block; margin-bottom: 4px; font-size: 13.5px; }
+</style>
+
+<div class="page">
+  <header class="page-head">
+    <span class="eyebrow">ZintropIA · doctor de plantas</span>
+    <h1>Mockups móvil</h1>
+    <p>Diez pantallas: flujo demo (scan anónimo → identificación → funnel SSO → historial → límite) + resultado premium con toggle, perfil, suscripción, checkout y error. Tokens 1:1 de <code>nativeTheme.ts</code>, voz de la landing.</p>
+  </header>
+
+  <div class="gallery">
+
+    <!-- 1. Home / Scan -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="appbar" style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div><div class="hello">Buen día 🌱</div><div class="title">Zintropia</div></div>
+            <span class="chip"><span class="dot"></span>2 de 3 scans</span>
+          </div>
+          <div class="body">
+            <div class="scan-hero">
+              <div class="scan-ring">
+                <div class="scan-btn">
+                  <svg class="ic" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  Escanear
+                </div>
+              </div>
+              <p style="margin:0;font-size:13px;color:var(--muted-fg);text-align:center;max-width:26ch;">Sacale una foto a tu planta y te decimos qué le pasa</p>
+            </div>
+            <div>
+              <div style="font-size:12px;font-weight:800;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Últimos scans</div>
+              <div class="recent">
+                <div class="thumb" style="background:linear-gradient(135deg,#6B9E5E,#2D5F2D);"></div>
+                <div class="thumb" style="background:linear-gradient(135deg,#A68B6B,#7B5B3A);"></div>
+                <div class="thumb" style="background:linear-gradient(135deg,#4DC8D9,#4A7C3F);"></div>
+              </div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Escanear</div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h12"/></svg>Historial</div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Perfil</div>
+          </div>
+        </div>
+      </div>
+      <div class="shot-label"><b>1 · Home / Escanear</b>contador de scans siempre visible</div>
+    </div>
+
+    <!-- 2. Resultado -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="appbar"><div class="title" style="font-size:17px;">Resultado</div></div>
+          <div class="body">
+            <div class="photo" style="background:linear-gradient(160deg,#6B9E5E 0%,#2D5F2D 70%);">
+              <span class="conf">✓ 94% confianza</span>
+            </div>
+            <div>
+              <h3 class="plant-name">Potus</h3>
+              <p class="plant-latin">Epipremnum aureum</p>
+            </div>
+            <div class="care">
+              <div class="card"><span class="lbl">☀️ Luz</span><span class="val">Indirecta brillante</span></div>
+              <div class="card"><span class="lbl">💧 Riego</span><span class="val">Cada 7–10 días</span></div>
+            </div>
+            <div class="card">
+              <h4>💡 Tip orgánico</h4>
+              <p>Las hojas amarillas suelen ser exceso de riego. Dejá secar los primeros 3 cm de sustrato antes de volver a regar.</p>
+            </div>
+            <div class="btn ghost" style="border-color:var(--gold);color:var(--root);gap:6px;">✦ Ver análisis completo</div>
+            <p style="margin:-8px 0 0;text-align:center;font-size:10px;color:var(--muted-fg);">Visible solo con plan Bosque · si es free, no se muestra</p>
+            <div class="btn primary">Guardar en mi historial</div>
+          </div>
+        </div>
+      </div>
+      <div class="shot-label"><b>2 · Resultado básico (Semilla · free)</b>cuidados esenciales, soluciones orgánicas</div>
+    </div>
+
+    <!-- 3. Historial -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="appbar" style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div class="title" style="font-size:17px;">Historial</div>
+            <span class="chip warn"><span class="dot"></span>3 de 3 scans</span>
+          </div>
+          <div class="body" style="gap:10px;">
+            <div class="card"><div class="row">
+              <div class="thumb" style="background:linear-gradient(135deg,#6B9E5E,#2D5F2D);"></div>
+              <div class="meta"><b>Potus</b><span>Hoy · 9:41</span></div>
+              <span class="badge ok">94%</span>
+            </div></div>
+            <div class="card"><div class="row">
+              <div class="thumb" style="background:linear-gradient(135deg,#E8B44D,#7B5B3A);"></div>
+              <div class="meta"><b>Foto poco clara</b><span>Ayer · 18:20</span></div>
+              <span class="badge low">Repetir</span>
+            </div></div>
+            <div class="card"><div class="row">
+              <div class="thumb" style="background:linear-gradient(135deg,#4DC8D9,#4A7C3F);"></div>
+              <div class="meta"><b>Albahaca</b><span>8 jul · 11:05</span></div>
+              <span class="badge ok">89%</span>
+            </div></div>
+            <p style="margin:4px 4px 0;font-size:11px;color:var(--muted-fg);">Las fotos se guardan por 30 días.</p>
+          </div>
+          <div class="tabbar">
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Escanear</div>
+            <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h12"/></svg>Historial</div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Perfil</div>
+          </div>
+        </div>
+      </div>
+      <div class="shot-label"><b>3 · Historial</b>estados: confiable / repetir foto · retención 30 días</div>
+    </div>
+
+    <!-- 4. Login SSO -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="body">
+            <div class="login">
+              <div class="logo-leaf">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+              </div>
+              <h2>Tu primer scan fue gratis 🌿</h2>
+              <p class="sub">Creá tu cuenta para seguir escaneando:<br>3 scans por mes, historial y cuidados guardados.</p>
+              <div class="btn ghost">
+                <svg class="ic" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18A11 11 0 0 0 1 12c0 1.77.42 3.45 1.18 4.94l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                Continuar con Google
+              </div>
+              <div class="btn dark">
+                <svg class="ic" viewBox="0 0 24 24" fill="#FAFAF7"><path d="M17.05 20.28c-.98.95-2.05.86-3.08.38-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.38C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                Continuar con Apple
+              </div>
+              <p class="legal">Al continuar aceptás los términos y la política de privacidad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shot-label"><b>4 · Funnel SSO (Clerk)</b>aparece recién en el scan #2</div>
+    </div>
+
+    <!-- 5. Límite mensual -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="appbar" style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div class="title" style="font-size:17px;">Zintropia</div>
+            <span class="chip stop"><span class="dot"></span>3 de 3 scans</span>
+          </div>
+          <div class="body">
+            <div class="cap">
+              <div class="cap-count">
+                <div class="seed used"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FAFAF7" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+                <div class="seed used"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FAFAF7" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+                <div class="seed used"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FAFAF7" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+              </div>
+              <h2>Usaste tus 3 scans del mes</h2>
+              <p>Tu huerta también descansa. Los scans se renuevan el <b>1 de agosto</b>.</p>
+              <div class="btn ghost" style="width:100%;">Ver mi historial</div>
+              <div class="card" style="width:100%;">
+                <h4>🌱 Mientras tanto</h4>
+                <p>Repasá los cuidados guardados de tus plantas o explorá el catálogo con 50+ plantas documentadas.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Escanear</div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h12"/></svg>Historial</div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Perfil</div>
+          </div>
+        </div>
+      </div>
+      <div class="shot-label"><b>5 · Límite alcanzado</b>hard cap sin billing — tono amable, sin dark patterns</div>
+    </div>
+
+    <!-- 6. Resultado extendido (premium) -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="appbar" style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div class="title" style="font-size:17px;">Resultado</div>
+            <span class="pro-badge">✦ BOSQUE</span>
+          </div>
+          <div class="body" style="gap:11px;">
+            <div class="seg">
+              <div>Esencial</div>
+              <div class="on">✦ Completo</div>
+            </div>
+            <div class="photo" style="height:120px;background:linear-gradient(160deg,#6B9E5E 0%,#2D5F2D 70%);">
+              <span class="conf">✓ 94% confianza</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+              <div>
+                <h3 class="plant-name" style="font-size:19px;">Potus</h3>
+                <p class="plant-latin">Epipremnum aureum</p>
+              </div>
+              <span class="badge low">⚠ Estrés hídrico</span>
+            </div>
+            <div class="section-h">🩺 Diagnóstico</div>
+            <div class="card">
+              <p>Hojas amarillas en la base + sustrato compactado indican <b>exceso de riego sostenido</b>. Raíces aún sanas: recuperable en 2–3 semanas.</p>
+            </div>
+            <div class="section-h">📅 Plan de recuperación</div>
+            <div class="card" style="display:flex;flex-direction:column;gap:8px;">
+              <div class="kv"><span>Semana 1 — pausar riego</span><span>💧✕</span></div>
+              <div class="kv"><span>Semana 2 — airear sustrato</span><span>🪴</span></div>
+              <div class="kv"><span>Semana 3 — retomar riego ligero</span><span>💧</span></div>
+            </div>
+            <div class="section-h">🌤 Condiciones ideales</div>
+            <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+              <div>
+                <div class="kv" style="border:0;padding:0 0 4px;"><span>Luz</span><span>60%</span></div>
+                <div class="meter"><div style="width:60%"></div></div>
+              </div>
+              <div>
+                <div class="kv" style="border:0;padding:0 0 4px;"><span>Humedad</span><span>40%</span></div>
+                <div class="meter"><div style="width:40%"></div></div>
+              </div>
+            </div>
+            <div class="section-h">🌱 Compañeras en tu huerta</div>
+            <div class="card"><p>Combina bien con helechos y calatheas (mismo estrato medio, riego similar)…</p></div>
+          </div>
+          <div class="fade-bottom"></div>
+          <div class="scrollhint">↓ seguí bajando</div>
+        </div>
+      </div>
+      <div class="shot-label"><b>6 · Resultado extendido (Bosque · premium)</b>toggle Esencial ↔ Completo · scroll denso: diagnóstico, plan, condiciones, compañeras</div>
+    </div>
+
+    <!-- 7. Perfil -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="appbar"><div class="title" style="font-size:17px;">Perfil</div></div>
+          <div class="body" style="gap:12px;">
+            <div class="card" style="display:flex;gap:14px;align-items:center;">
+              <div class="avatar">M</div>
+              <div style="min-width:0;">
+                <div style="font-size:16px;font-weight:800;color:var(--card-fg);">Mariano</div>
+                <div style="font-size:12px;color:var(--muted-fg);">mariano@zintropia.app</div>
+                <span class="chip" style="margin-top:6px;"><span class="dot"></span>Plan Semilla · gratis</span>
+              </div>
+            </div>
+            <div class="card" style="display:flex;flex-direction:column;gap:2px;">
+              <div class="kv"><span>📍 Zona</span><span>Buenos Aires, AR</span></div>
+              <div class="kv"><span>🌡 Clima</span><span>Templado húmedo</span></div>
+              <div class="kv"><span>🌱 Temporada</span><span>Siembra bajo techo</span></div>
+            </div>
+            <div class="card" style="background:var(--cielo);border-color:var(--gold);">
+              <h4>✦ Pasate a Bosque</h4>
+              <p>Scans ilimitados, diagnósticos extendidos y calendario según tu zona.</p>
+            </div>
+            <div class="card" style="padding:4px 16px;">
+              <div class="settings-row">🔔 Notificaciones <span class="chev">›</span></div>
+              <div class="settings-row">🔒 Privacidad y datos <span class="chev">›</span></div>
+              <div class="settings-row">💬 Ayuda <span class="chev">›</span></div>
+              <div class="settings-row" style="color:var(--error);">Cerrar sesión</div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Escanear</div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h12"/></svg>Historial</div>
+            <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Perfil</div>
+          </div>
+        </div>
+      </div>
+      <div class="shot-label"><b>7 · Perfil</b>tier visible, zona geográfica → calendario y consejos</div>
+    </div>
+
+    <!-- 8. Suscripción -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="appbar"><div class="title" style="font-size:17px;">Elegí tu plan</div></div>
+          <div class="body" style="gap:12px;">
+            <p style="margin:0;font-size:12.5px;color:var(--muted-fg);line-height:1.5;">Empezá gratis. Pasate a Bosque cuando tu huerta lo pida.</p>
+            <div class="tier">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span class="t-name">🌱 Semilla</span>
+                <span class="t-price">$0</span>
+              </div>
+              <ul>
+                <li>3 scans por mes</li>
+                <li>Cuidados esenciales (luz, riego, tips)</li>
+                <li>Historial 30 días</li>
+              </ul>
+              <div class="btn ghost" style="margin-top:12px;padding:10px;">Tu plan actual</div>
+            </div>
+            <div class="tier featured">
+              <span class="flag pro-badge">✦ RECOMENDADO</span>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span class="t-name">🌳 Bosque</span>
+                <span class="t-price">$4.99 <small>/ mes</small></span>
+              </div>
+              <ul>
+                <li>Scans ilimitados</li>
+                <li>Diagnóstico extendido + plan de recuperación</li>
+                <li>Calendario de siembra según tu zona</li>
+                <li>Historial completo, sin vencimiento</li>
+              </ul>
+              <div class="btn primary" style="margin-top:12px;padding:11px;">Probar 7 días gratis</div>
+            </div>
+            <p style="margin:0;text-align:center;font-size:10.5px;color:var(--muted-fg);">Cancelás cuando quieras desde la tienda. Sin permanencia.</p>
+          </div>
+        </div>
+      </div>
+      <div class="shot-label"><b>8 · Suscripción</b>2 tiers: Semilla (free) / Bosque (premium) — RevenueCat a futuro</div>
+    </div>
+
+    <!-- 8b. Checkout -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="appbar"><div class="title" style="font-size:17px;">Elegí tu plan</div></div>
+          <div class="body" style="gap:12px;opacity:.35;">
+            <div class="tier featured">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span class="t-name">🌳 Bosque</span>
+                <span class="t-price">$4.99 <small>/ mes</small></span>
+              </div>
+            </div>
+          </div>
+          <div class="sheet-backdrop"></div>
+          <div class="sheet">
+            <div class="grab"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-size:15px;font-weight:800;color:var(--forest);">🌳 Zintropia Bosque</div>
+                <div style="font-size:11.5px;color:var(--muted-fg);">Suscripción mensual · renovación automática</div>
+              </div>
+              <span class="pro-badge">7 días gratis</span>
+            </div>
+            <div class="trial-line">
+              <div class="trial-step">
+                <div class="tdot"><i></i><em></em></div>
+                <div class="tmeta"><b>Hoy — empieza tu prueba</b><span>Acceso completo a Bosque, sin cargo</span></div>
+              </div>
+              <div class="trial-step">
+                <div class="tdot"><i style="background:var(--gold)"></i><em></em></div>
+                <div class="tmeta"><b>Día 5 — te avisamos</b><span>Recordatorio antes de cualquier cobro</span></div>
+              </div>
+              <div class="trial-step">
+                <div class="tdot"><i style="background:var(--tan)"></i></div>
+                <div class="tmeta"><b>Día 7 — primer cobro: $4.99</b><span>Cancelás antes y no pagás nada</span></div>
+              </div>
+            </div>
+            <div class="kv" style="border-top:1px solid var(--border);padding-top:10px;"><span>Total hoy</span><span>$0.00</span></div>
+            <div class="btn dark" style="gap:8px;">
+              <svg class="ic" viewBox="0 0 24 24" fill="#FAFAF7"><path d="M17.05 20.28c-.98.95-2.05.86-3.08.38-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.38C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08z"/></svg>
+              Suscribirse con App Store
+            </div>
+            <p style="margin:0;text-align:center;font-size:10px;color:var(--muted-fg);line-height:1.5;">El pago lo procesa Apple / Google Play — la app nunca ve tu tarjeta.<br>Gestioná o cancelá desde los ajustes de la tienda.</p>
+          </div>
+        </div>
+      </div>
+      <div class="shot-label"><b>8b · Checkout (sheet nativo)</b>IAP vía tienda (RevenueCat) — timeline del trial, total hoy $0</div>
+    </div>
+
+    <!-- 9. Error -->
+    <div class="shot">
+      <div class="phone"><div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="screen">
+          <div class="body">
+            <div class="error-screen">
+              <div class="error-pot">🥀</div>
+              <h2 style="margin:0;font-size:20px;font-weight:800;color:var(--forest);">Algo se marchitó</h2>
+              <p style="margin:0;font-size:13px;color:var(--muted-fg);max-width:28ch;line-height:1.5;">No fue tu culpa. Probá de nuevo y, si sigue, avisanos — ya estamos regando el problema.</p>
+              <div class="btn primary" style="width:100%;">Reintentar</div>
+              <div class="btn ghost" style="width:100%;">Volver al inicio</div>
+              <p style="margin:4px 0 0;font-size:10px;color:var(--muted-fg);font-family:ui-monospace,monospace;">error_id: zin-8f2a91</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shot-label"><b>9 · Error general</b>tono amable, salida clara al inicio, error_id para soporte (Sentry)</div>
+    </div>
+
+  </div>
+
+  <div class="notes">
+    <div class="note"><b>Tokens</b>Todos los colores salen de <code>nativeTheme.ts</code>: fondo <code>#E8EDDF</code>, cards <code>#F7F9F4</code>, primario leaf <code>#4A7C3F</code>, titulares forest <code>#2D5F2D</code>, alertas gold/error. Tipografía Nunito (fallback rounded en este preview).</div>
+    <div class="note"><b>Decisiones a discutir</b>① Contador de scans como chip persistente en el header. ② Baja confianza = estado "Repetir" en historial (consume scan, como define el demo). ③ Tab bar de 3 items: Escanear / Historial / Perfil. ④ Naming de tiers: Semilla / Bosque (metáfora sintrópica). ⑤ Premium con trial de 7 días; precio placeholder $4.99. ⑥ Zona geográfica solo a nivel ciudad/clima — sin ubicación exacta (fuera de scope del demo). ⑦ Toggle Esencial/Completo en el resultado: solo usuarios Bosque lo ven; en free directamente no se renderiza. ⑧ Checkout como sheet nativo de la tienda (IAP): la app nunca maneja tarjetas — RevenueCat orquesta, Apple/Google cobran.</div>
+    <div class="note"><b>Cómo iterar</b>Pedime cambios en el chat ("probá el resultado con la foto full-screen", "otra variante del home sin tab bar") y redeployo esta misma URL. Cada versión queda en el historial del artifact.</div>
+  </div>
+</div>

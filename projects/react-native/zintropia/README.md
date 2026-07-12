@@ -16,22 +16,24 @@ Out of scope: billing, paid tiers, disease diagnosis, multi-plant scans, offline
 
 ## Stack
 
-Expo SDK 57 · TypeScript · Expo Router · Unistyles v3 · Zustand · TanStack Query · MMKV · Expo SQLite + Drizzle · FlashList · React Hook Form + Zod · Supabase · Biome.
+Expo SDK 57 · TypeScript · Expo Router · Uniwind (Tailwind) · React Native Reusables · Zustand · TanStack Query · MMKV · Expo SQLite + Drizzle · FlashList · React Hook Form + Zod · Clerk (auth) · Supabase (data) · Sentry · Biome.
 
 Full breakdown with decisions in [docs/stack-base-2026.md](docs/stack-base-2026.md).
 
 ## Design system
 
-Tokens live in [src/theme/nativeTheme.ts](src/theme/nativeTheme.ts) (colors, typography, spacing, radius, shadows) and are registered as the Unistyles theme in [src/theme/unistyles.ts](src/theme/unistyles.ts). Style components with `StyleSheet.create` from `react-native-unistyles` — the theme is injected, never import raw hex values.
+Tokens live in [src/theme/nativeTheme.ts](src/theme/nativeTheme.ts) (source of truth) and are mirrored as CSS variables in [src/global.css](src/global.css) for Uniwind. Style with Tailwind classes (`bg-background`, `text-foreground`, `bg-leaf`, `rounded-lg`) — never hardcode hex values. UI primitives come from React Native Reusables: `npx @react-native-reusables/cli add <component>`.
 
 Fonts: Nunito via `@expo-google-fonts/nunito` (regular / semibold / bold).
+
+Screen mockups (10 screens, HTML): [docs/mockups/zintropia-mockups.html](docs/mockups/zintropia-mockups.html) — open directly in a browser.
 
 ## Getting started
 
 ```bash
 npm install
 
-# Development build (required — MMKV and Unistyles use native modules, Expo Go won't work)
+# Development build (required — MMKV, Sentry and SecureStore use native code, Expo Go won't work)
 npx expo run:ios
 npx expo run:android
 ```
@@ -41,6 +43,7 @@ npx expo run:android
 Create `.env.local` (validated with Zod at startup):
 
 ```bash
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
 EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ```

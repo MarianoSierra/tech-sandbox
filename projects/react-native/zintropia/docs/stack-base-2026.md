@@ -30,8 +30,9 @@ Stack de referencia para apps móviles modernas con React Native. Estado según 
 
 | Herramienta | Rol | Estado | Docs |
 | --- | --- | --- | --- |
-| **Unistyles** | Sistema de estilos: temas tipados, variantes, breakpoints, rendimiento ~StyleSheet nativo | ✅ v3 | [docs](https://www.unistyl.es/) |
-| **Uniwind** | Bindings Tailwind CSS para RN | ❌ redundante con Unistyles — el design system (`nativeTheme.ts`) es un objeto de tokens TS que mapea directo a temas de Unistyles | [uniwind.dev](https://uniwind.dev/) |
+| **Uniwind** | Bindings Tailwind CSS para RN (estilos vía `className`, tokens como CSS variables) | ✅ + tailwindcss — tokens en `src/global.css` | [uniwind.dev](https://uniwind.dev/) |
+| **React Native Reusables** | Port de shadcn/ui para RN — componentes copiados al repo vía CLI, soporta Uniwind | ✅ CLI (`npx @react-native-reusables/cli add <componente>`) | [docs](https://reactnativereusables.com/) |
+| **Unistyles** | Sistema de estilos con temas tipados en TS | ❌ reemplazado por Uniwind — preferencia por flujo Tailwind + compatibilidad con Reusables | [docs](https://www.unistyl.es/) |
 | **Expo UI** | Componentes SwiftUI / Jetpack Compose nativos | ✅ (incluido en template SDK 57) | [docs](https://docs.expo.dev/versions/latest/sdk/ui/) |
 
 ## 5. Rendimiento y utilidades
@@ -54,14 +55,14 @@ Stack de referencia para apps móviles modernas con React Native. Estado según 
 
 | Herramienta | Rol | Estado | Docs |
 | --- | --- | --- | --- |
-| **Supabase** | Postgres + Auth (Google/Apple SSO) + Storage + Edge Functions | ✅ cliente JS | [supabase.com](https://supabase.com/) |
-| **Clerk** | Auth con componentes nativos | ❌ redundante — la idea de Zintropia usa Supabase Auth | [clerk.com](https://clerk.com/) |
-| **Sentry** | Monitoreo de errores y performance | ⏳ módulo de calidad/ship | [sentry.io](https://sentry.io/for/react-native/) |
+| **Clerk** | Auth (Google/Apple SSO) con SDK nativo Expo — free tier 50k MRU | ✅ `@clerk/clerk-expo` + `expo-secure-store` | [clerk.com](https://clerk.com/) |
+| **Supabase** | Postgres + Storage + Edge Functions (auth delegada a Clerk vía third-party integration) | ✅ cliente JS | [supabase.com](https://supabase.com/) |
+| **Sentry** | Monitoreo de errores y performance — free tier developer | ✅ `@sentry/react-native` (config plugin agregado; falta DSN vía wizard) | [sentry.io](https://sentry.io/for/react-native/) |
 | **RevenueCat** | Suscripciones e IAP | ⏳ fuera del scope del demo (sin billing) | [revenuecat.com](https://www.revenuecat.com/) |
 
 ## Nota importante: Expo Go no sirve para este stack
 
-`react-native-mmkv` y `react-native-unistyles` incluyen módulos nativos (Nitro Modules) → **requieren development build**:
+`react-native-mmkv` (Nitro Modules), `@sentry/react-native` y `expo-secure-store` incluyen código nativo → **requieren development build**:
 
 ```bash
 npx expo run:ios      # simulador / dispositivo iOS
