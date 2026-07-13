@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@import "uniwind";
+
+/*
+ * Zintropia static palette + semantic tokens
+ * No light/dark switching for now.
+ *
+ * Base palette:
+ * - text-primary
+ * - text-secondary
+ * - text-accent
+ * - text-accent-gold
+ * - text-accent-cyan
+ *
+ * Semantic tokens:
+ * - bg-background
+ * - text-foreground
+ * - bg-card
+ * - text-card-foreground
+ * - border-border
+ */
+
+@theme {
+	/* Base palette */
+	--color-primary: #4a7c3f;
+	--color-primary-foreground: #fafaf7;
+	--color-primary-light: #6b9e5e;
+	--color-primary-dark: #2d5f2d;
+	--color-secondary: #7b5b3a;
+	--color-secondary-foreground: #fafaf7;
+	--color-accent: #f0ede8;
+	--color-accent-foreground: #3d2b1f;
+	--color-accent-gold: #e8b44d;
+	--color-accent-cyan: #4dc8d9;
+
+	/* Semantic tokens */
+	--color-background: #e8eddf;
+	--color-foreground: #3d2b1f;
+	--color-card: #f7f9f4;
+	--color-card-foreground: #4a3728;
+	--color-popover: #f7f9f4;
+	--color-popover-foreground: #4a3728;
+	--color-muted: #f0ede8;
+	--color-muted-foreground: #766e62;
+	--color-border: #dde3d5;
+	--color-input: #dde3d5;
+	--color-ring: #4a7c3f;
+	--color-destructive: #c4533a;
+	--color-destructive-foreground: #fafaf7;
+}
