@@ -6,7 +6,7 @@ Expo/React Native app for plant recognition and organic-first care guidance. Bui
 
 Validates the photo → plant ID → care guidance hook and the anonymous → logged-in funnel:
 
-- One anonymous scan without an account; scan 2+ requires Google/Apple SSO (Supabase Auth).
+- One anonymous scan without an account; scan 2+ requires Google/Apple SSO (Clerk).
 - Authenticated free tier: 3 scans per UTC calendar month, hard cap, no billing.
 - Spanish care summary (light, water, tips) for confident identifications.
 - Low-confidence results ask for a clearer photo and count toward allowances.
@@ -31,7 +31,7 @@ Screen mockups (10 screens, HTML): [docs/mockups/zintropia-mockups.html](docs/mo
 ## Getting started
 
 ```bash
-npm install
+pnpm install
 
 # Development build (required — MMKV, Sentry and SecureStore use native code, Expo Go won't work)
 npx expo run:ios
@@ -51,9 +51,9 @@ EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ## Scripts
 
 ```bash
-npm run check      # Biome lint + format (write)
-npm run lint       # Biome lint only
-npm run typecheck  # tsc --noEmit
+pnpm run check      # Biome lint + format (write)
+pnpm run lint       # Biome lint only
+pnpm run typecheck  # tsc --noEmit
 ```
 
 ## Project structure
